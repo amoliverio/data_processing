@@ -57,7 +57,7 @@ You can now use the output files from cutadapt with the normal raw index reads f
 
 Merge paired end reads using this command. Note that settings are just guesses and can be altered. **Do not** merge reads unless there is substantial overlap. **Do not** merge blindly or you could bias your data.
 
-	usearch10 -fastq_mergepairs demultiplexed_seqs/demultiplexed_seqs_1.fq -reverse demultiplexed_seqs/demultiplexed_seqs_2.fq -fastq_minovlen 16 -fastq_minmergelen 200 -fastqout demultiplexed_seqs/demultiplexed_seqs_merged.fq -notrunclabels -report demultiplexed_seqs/merge_rpt.txt
+	usearch10 -fastq_mergepairs demultiplexed_seqs/demultiplexed_seqs_1.fq -reverse demultiplexed_seqs/demultiplexed_seqs_2.fq -fastq_minovlen 16 -fastq_minmergelen 200 -fastqout demultiplexed_seqs/demultiplexed_seqs_merged.fq -report demultiplexed_seqs/merge_rpt.txt
 	less demultiplexed_seqs/merge_rpt.txt
 
 ###Step 2d: Strip primers after merging
