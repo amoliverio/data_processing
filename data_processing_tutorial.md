@@ -121,11 +121,11 @@ The -fastq_trunclen is an optional flag to truncate sequences at specific length
 
 The goal of this step is to provide taxonomic classifications for each OTU. We do this using the RDP classifier with the GreenGenes database.
 
-	biom convert -i zotu_table.txt -o zotu_table.biom --table-type 'OTU table' --to-json
+	biom convert -i zotutab.txt -o zotutab.biom --table-type 'OTU table' --to-json
 
 	assign_taxonomy.py -m rdp -i rep_set_zotus_filt.fasta -o rdp_assigned_taxonomy_zotus -c 0.5 -t <taxonomy database filepath> -r <rep set filepath> --rdp_max_memory 10000
 
-	biom add-metadata -i zotu_table.biom --observation-metadata-fp rdp_assigned_taxonomy_zotus/rep_set_tax_assignments.txt --sc-separated taxonomy --observation-header OTUID,taxonomy -o zotu_table_wTax.biom
+	biom add-metadata -i zotutab.biom --observation-metadata-fp rdp_assigned_taxonomy_zotus/rep_set_tax_assignments.txt --sc-separated taxonomy --observation-header OTUID,taxonomy -o zotutab_wTax.biom
 	
 Here are the different databases to use for taxonomic classification:
 
@@ -153,15 +153,15 @@ Here are the different databases to use for taxonomic classification:
 
 It is a good idea to check for and remove chloroplast and mitochondria sequences in most sample types:
 
-	filter_taxa_from_otu_table.py -i zotu_table_wTax.biom -o zotu_table_wTax_noChloroMito.biom -n c__Chloroplast,f__mitochondria
+	filter_taxa_from_otu_table.py -i zotutab_wTax.biom -o zotutab_wTax_noChloroMito.biom -n c__Chloroplast,f__mitochondria
 
 **###Step 8: Odds and ends**
 
 Convert OTU table back to text format if desired:
 
-	biom convert -i zotu_table_wTax_noChloroMito.biom -o zotu_table_wTax_noChloroMito.txt --to-tsv --header-key=taxonomy
+	biom convert -i zotutab_wTax_noChloroMito.biom -o zotutab_wTax_noChloroMito.txt --to-tsv --header-key=taxonomy
 
 Get stats on OTU table - # OTUs, # samples, etc:
 
-	biom summarize-table -i zotu_table_wTax_noChloroMito.biom -o zotu_table_wTax_noChloroMito_smry.txt
-	usearch -otutab_stats zotu_table_wTax_noChloroMito.txt -output report.txt
+	biom summarize-table -i zotutab_wTax_noChloroMito.txt -o zotutab_wTax_noChloroMito_smry.txt
+	usearch -otutab_stats zotutab_wTax_noChloroMito.txt -output report.txt
