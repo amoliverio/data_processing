@@ -6,12 +6,9 @@
 
 ##Notes:
 
-This pipeline for processing raw sequence data into sequence variants or OTUs with USEARCH and UNOISE3/UPARSE. This document is an updated version of data processing tutorial (link below). If this is your first time working on the microbe server please clink link below for an overview of how to login onto the server etc: 
+This pipeline for processing raw sequence data into sequence variants or OTUs with USEARCH and UNOISE3/UPARSE. This document is an updated version of data processing tutorial [here](https://github.com/leffj/data-tutorials/blob/master/amplicon_data_processing_tutorial/amplicon_data_processing-16S.md). If this is your first time working on the microbe server please go [here](https://github.com/leffj/data-tutorials/blob/master/amplicon_data_processing_tutorial/amplicon_data_processing-16S.md) for an overview of how to login onto the server etc.:  
 
-https://github.com/leffj/data-tutorials/blob/master/amplicon_data_processing_tutorial/amplicon_data_processing-16S.md
-
-
-###Step 1: Get tutorial data and check mapping file (e.g. metadata)
+**###Step 1: Get tutorial data and check mapping file (e.g. metadata)**
 
 Demo mapping file is available here: http://fiererlab.org/?p=516
 
@@ -22,7 +19,7 @@ First, check the mapping file to make sure it is formatted correctly (QIIME comm
 	less checkout/Demo_16S_MappingFile.log
 
 
-###Step 2: Make directory for sequence data
+**###Step 2: Make directory for sequence data**
 
 **Important** Raw data is deposited into `/BioFrontiers`, and should be copied into `/data/shared/`, where all Fierer lab raw sequence data are be stored long term. 
 
@@ -55,7 +52,7 @@ You can now use the output files from cutadapt with the normal raw index reads f
 
 	prep_fastq_for_uparse_paired.py -i /data/shared/2014_02_03_data_tutorial/Undetermined_S0_L001_R1_001_t.fastq.gz -r /data/shared/2014_02_03_data_tutorial/Undetermined_S0_L001_R2_001_t.fastq.gz -b /data/shared/2014_02_03_data_tutorial/Undetermined_S0_L001_I1_001_t.fastq.gz -m Demo_16S_MappingFile.txt -o demultiplexed_seqs/ -c
 
-**NOTE:** If you are dealing with sequences that are already demultiplexed by the Illumina software and are distributed in different files (one for each sample), see [here](preparing_already_demultiplexed_data.md).
+**NOTE:** If you are dealing with sequences that are already demultiplexed by the Illumina software and are distributed in different files (one for each sample), see [here](https://github.com/leffj/data-tutorials/blob/master/amplicon_data_processing_tutorial/preparing_already_demultiplexed_data.md).
 
 ###Step 2c: Merging paired reads
 
@@ -76,7 +73,7 @@ trim reverse primer [note: reverse sequence is r-complement]
 	
 	cutadapt -a rev_primer demultiplexed_seqs/demultiplexed_seqs_merged_trimmedf.fq > demultiplexed_seqs_merged_trimmedfr.fq
 
-###Step 3: Prepare sequences for de novo database creation
+**###Step 3: Prepare sequences for de novo database creation**
 
 ####Check quality of sequences
 	
@@ -91,7 +88,7 @@ trim reverse primer [note: reverse sequence is r-complement]
 
 	usearch10 -fastx_uniques seqs_filt.fa -fastaout uniques.fasta -sizeout -relabel Uniq
 
-###Step 4: Make zOTUs or OTUs and create de novo database (e.g. rep_set), then filter against an existing public database to remove highly divergent sequences 
+**###Step 4: Make zOTUs or OTUs and create de novo database (e.g. rep_set), then filter against an existing public database to remove highly divergent sequences** 
 
 ####To create zOTUS (note unoise command has abundance threshold (-minsize), default is 8):
 	
@@ -107,7 +104,7 @@ trim reverse primer [note: reverse sequence is r-complement]
 	usearch10 -usearch_global rep_set97.fasta -db /db_files/gg_files/gg_13_8_otus/rep_set/97_otus.fasta -id 0.75 -strand both -matched rep_set97_filt.fasta
 
 
-###Step 5: Map the raw/demultiplexed (fasta formatted) sequences to the de novo database and build the OTU table
+**###Step 5: Map the raw/demultiplexed (fasta formatted) sequences to the de novo database and build the OTU table**
 
 #### for zOTUs
 
@@ -119,7 +116,7 @@ trim reverse primer [note: reverse sequence is r-complement]
 
 **NOTE:** The rest of the pipeline will be the same for zOTUs or OTUs, I've just done zOTUs below to demonstrate. USEARCH manual recommends making tables for both to compare.
 
-###Step 6: Add taxonomic classifications
+**###Step 6: Add taxonomic classifications**
 
 The goal of this step is to provide taxonomic classifications for each OTU. We do this using the RDP classifier with the GreenGenes database.
 
@@ -151,13 +148,13 @@ Here are the different databases to use for taxonomic classification:
 	/db_files/UNITE_files/sh_qiime_release_s_02.03.2015/sh_refs_qiime_ver7_97_s_02.03.2015.fasta
 	/db_files/UNITE_files/sh_qiime_release_s_02.03.2015/sh_taxonomy_qiime_ver7_97_s_02.03.2015.txt
 
-###Step 7: Remove chloroplasts/mitochondria and summarize the OTU table
+**###Step 7: Remove chloroplasts/mitochondria**
 
 It is a good idea to check for and remove chloroplast and mitochondria sequences in most sample types:
 
 	filter_taxa_from_otu_table.py -i zotu_table_wTax.biom -o zotu_table_wTax_noChloroMito.biom -n c__Chloroplast,f__mitochondria
 
-###Step 8: Odds and ends
+**###Step 8: Odds and ends**
 
 Convert OTU table back to text format if desired:
 
