@@ -125,7 +125,7 @@ The goal of this step is to provide taxonomic classifications for each OTU. We d
 
 	assign_taxonomy.py -m rdp -i rep_set_zotus_filt.fasta -o rdp_assigned_taxonomy_zotus -c 0.5 -t <taxonomy database filepath> -r <rep set filepath> --rdp_max_memory 10000
 
-	biom add-metadata -i zotutab.biom --observation-metadata-fp rdp_assigned_taxonomy_zotus/rep_set_tax_assignments.txt --sc-separated taxonomy --observation-header OTUID,taxonomy -o zotutab_wTax.biom
+	biom add-metadata -i zotutab.biom --observation-metadata-fp rdp_assigned_taxonomy_zotus/rep_set_zotus_filt_tax_assignments.txt --sc-separated taxonomy --observation-header OTUID,taxonomy -o zotutab_wTax.biom
 	
 Here are the different databases to use for taxonomic classification:
 
