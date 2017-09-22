@@ -81,7 +81,9 @@ trim reverse primer [note: reverse sequence is r-complement]
 
 ####Conduct quality filtering
 
-	usearch10 -fastq_filter demultiplexed_seqs/demultiplexed_seqs_merged.fq -fastaout seqs_filt.fa -fastq_maxee 1.0
+The -fastq_trunclen is an optional flag to truncate sequences at specific length, should be based off of eestats2 output!
+
+	usearch10 -fastq_filter demultiplexed_seqs/demultiplexed_seqs_merged.fq -fastaout seqs_filt.fa -fastq_maxee 1.0 -fastq_trunclen 240
 
 ####Dereplicate sequences
 
