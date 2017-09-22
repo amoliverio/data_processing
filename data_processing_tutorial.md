@@ -1,7 +1,6 @@
-#Data Processing in the Fierer Lab: Sequence Variants (zOTUs) or Clustering at % identity (OTUs)#
+#Data Processing in the Fierer Lab: Sequence Variants (zOTUs) or Clustering at 97% identity (OTUs)
 
 **Updated: 09/25/2017**  
-
 **Questions: angela.oliverio43@gmail.com**
 
 ##Notes:
