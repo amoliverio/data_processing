@@ -109,11 +109,11 @@ The -fastq_trunclen is an optional flag to truncate sequences at specific length
 
 #### for zOTUs
 
-	usearch10 -otutab demultiplexed_seqs/demultiplexed_seqs_merged.fq -zotus zotus.fa -otutabout zotutab.txt -mapout zmap.txt
+	usearch10 -otutab demultiplexed_seqs/demultiplexed_seqs_merged.fq -zotus rep_set_zotus_filt.fasta -otutabout zotutab.txt -mapout zmap.txt
 
 #### for OTUs
 	
-	usearch10 -otutab demultiplexed_seqs/demultiplexed_seqs_merged.fq -otus otus.fa -otutabout otutab97.txt -mapout map.txt
+	usearch10 -otutab demultiplexed_seqs/demultiplexed_seqs_merged.fq -otus rep_set97_filt.fasta -otutabout otutab97.txt -mapout map.txt
 
 **NOTE:** The rest of the pipeline will be the same for zOTUs or OTUs, I've just done zOTUs below to demonstrate. USEARCH manual recommends making tables for both to compare.
 
