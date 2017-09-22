@@ -131,7 +131,7 @@ Here are the different databases to use for taxonomic classification:
 
 	16S Greengenes
 	taxonomy (-t): /db_files/gg_files/gg_13_8_otus/taxonomy/97_otu_taxonomy.txt
-	rep set (-r): //db_files/gg_files/gg_13_8_otus/rep_set/97_otus.fasta 
+	rep set (-r): /db_files/gg_files/gg_13_8_otus/rep_set/97_otus.fasta 
 
 	18S SILVA 99% cutoff
 	taxonomy (-t): /db_files/silva_files/Silva119_release/taxonomy_eukaryotes/97/taxonomy_97_7_levels_18S.txt
