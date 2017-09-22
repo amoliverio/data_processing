@@ -93,7 +93,7 @@ The -fastq_trunclen is an optional flag to truncate sequences at specific length
 
 ####To create zOTUS (note unoise command has abundance threshold (-minsize), default is 8):
 	
-	usearch10 -unoise3 uniques.fa -zotus rep_set_zotus.fasta -tabbedout unoise3.txt
+	usearch10 -unoise3 uniques.fasta -zotus rep_set_zotus.fasta -tabbedout unoise3.txt
 	
 	usearch10 -usearch_global rep_set_zotus.fasta -db /db_files/gg_files/gg_13_8_otus/rep_set/97_otus.fasta -id 0.75 -strand both -matched rep_set_zotus_filt.fasta
 
