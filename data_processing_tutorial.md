@@ -87,35 +87,35 @@ The -fastq_trunclen is an optional flag to truncate sequences at specific length
 
 ####Dereplicate sequences
 
-	usearch10 -fastx_uniques seqs_filt.fa -fastaout uniques.fasta -sizeout -relabel Uniq
+	usearch10 -fastx_uniques seqs_filt.fa -fastaout uniques.fa -sizeout -relabel Uniq
 
 **###Step 4: Make zOTUs or OTUs and create de novo database (e.g. rep_set), then filter against an existing public database to remove highly divergent sequences** 
 
 ####To create zOTUS (note unoise command has abundance threshold (-minsize), default is 8):
 	
-	usearch10 -unoise3 uniques.fasta -zotus rep_set_zotus.fasta -tabbedout unoise3.txt
+	usearch10 -unoise3 uniques.fa -zotus rep_set_zotus.fa -tabbedout unoise3.txt
 	
-	usearch10 -usearch_global rep_set_zotus.fasta -db /db_files/gg_files/gg_13_8_otus/rep_set/97_otus.fasta -id 0.75 -strand both -matched rep_set_zotus_filt.fasta
+	usearch10 -usearch_global rep_set_zotus.fa -db /db_files/gg_files/gg_13_8_otus/rep_set/99_otus.fasta -id 0.75 -strand both -matched rep_set_zotus_filt.fa
 	
-	-fastx_relabel rep_set_zotus_filt.fasta -prefix 'OTU_' -fastaout rep_set_zotus_filt_relabeled.fasta -keep_annots
+	-fastx_relabel rep_set_zotus_filt.fa -prefix 'OTU_' -fastaout rep_set_zotus_filt_relabeled.fa -keep_annots
 
 
 ####To cluster OTUs at 97% similarity (again, there is an abundance threshold (-minsize), default is 2):
 
-	usearch10 -cluster_otus uniques.fasta -otus rep_set97.fasta -relabel 'OTU_'
+	usearch10 -cluster_otus uniques.fa -otus rep_set97.fa -relabel 'OTU_'
 	
-	usearch10 -usearch_global rep_set97.fasta -db /db_files/gg_files/gg_13_8_otus/rep_set/97_otus.fasta -id 0.75 -strand both -matched rep_set97_filt.fasta
+	usearch10 -usearch_global rep_set97.fa -db /db_files/gg_files/gg_13_8_otus/rep_set/97_otus.fasta -id 0.75 -strand both -matched rep_set97_filt.fa
 
 
 **###Step 5: Map the raw/demultiplexed (fasta formatted) sequences to the de novo database and build the OTU table**
 
 #### for zOTUs
 
-	usearch10 -otutab demultiplexed_seqs/demultiplexed_seqs_merged.fq -zotus rep_set_zotus_filt_relabeled.fasta -otutabout zotutab.txt -mapout zmap.txt
+	usearch10 -otutab demultiplexed_seqs/demultiplexed_seqs_merged.fq -zotus rep_set_zotus_filt_relabeled.fa -otutabout zotutab.txt -mapout zmap.txt
 
 #### for OTUs
 	
-	usearch10 -otutab demultiplexed_seqs/demultiplexed_seqs_merged.fq -otus rep_set97_filt.fasta -otutabout otutab97.txt -mapout map.txt
+	usearch10 -otutab demultiplexed_seqs/demultiplexed_seqs_merged.fq -otus rep_set97_filt.fa -otutabout otutab97.txt -mapout map.txt
 
 **NOTE:** **The rest of the pipeline will be the same for zOTUs or OTUs, I've just done zOTUs below to demonstrate. USEARCH manual recommends making tables for both to compare, even if you are sure you will use only one or the other method downstream.**
 
@@ -125,7 +125,7 @@ The goal of this step is to provide taxonomic classifications for each OTU. We d
 
 	biom convert -i zotutab.txt -o zotutab.biom --table-type 'OTU table' --to-json
 
-	assign_taxonomy.py -m rdp -i rep_set_zotus_filt_relabeled.fasta -o rdp_assigned_taxonomy_zotus -c 0.5 -t <taxonomy database filepath> -r <rep set filepath> --rdp_max_memory 10000
+	assign_taxonomy.py -m rdp -i rep_set_zotus_filt_relabeled.fa -o rdp_assigned_taxonomy_zotus -c 0.5 -t <taxonomy database filepath> -r <rep set filepath> --rdp_max_memory 10000
 
 	biom add-metadata -i zotutab.biom --observation-metadata-fp rdp_assigned_taxonomy_zotus/rep_set_zotus_filt_relabeled_tax_assignments.txt --sc-separated taxonomy --observation-header OTUID,taxonomy -o zotutab_wTax.biom
 	
@@ -143,13 +143,9 @@ Here are the different databases to use for taxonomic classification:
 	taxonomy (-t): /db_files/silva_files/Silva119_release/taxonomy_eukaryotes/97/taxonomy_97_7_levels_18S.txt
 	rep set (-r): /db_files/silva_files/Silva119_release/rep_set_eukaryotes/97/Silva_119_rep_set97_18S.fna
 	
-	18S SILVA 97% cutoff
-	taxonomy (-t): /db_files/silva_files/Silva119_release/taxonomy_eukaryotes/97/taxonomy_97_7_levels_18S.txt
-	rep set (-r): /db_files/silva_files/Silva119_release/rep_set_eukaryotes/97/Silva_119_rep_set97_18S.fna
-	
 	18S Protist Ribosomal Reference (PR2)  
 	taxonomy (-t):	/db_files/pr2_files/2016_02/entire_database/qiime_gb203_taxo.txt
-	rep set (-r): /db_files/pr2_files/2016_02/entire_database/mothur_qiime_gb203.fasta.gz
+	rep set (-r): /db_files/pr2_files/2016_02/entire_database/mothur_qiime_gb203.fasta
 	
 	ITS UNITE 97% cutoff
 	/db_files/UNITE_files/sh_qiime_release_s_02.03.2015/sh_refs_qiime_ver7_97_s_02.03.2015.fasta
