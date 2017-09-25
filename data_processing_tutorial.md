@@ -96,6 +96,8 @@ The -fastq_trunclen is an optional flag to truncate sequences at specific length
 	usearch10 -unoise3 uniques.fasta -zotus rep_set_zotus.fasta -tabbedout unoise3.txt
 	
 	usearch10 -usearch_global rep_set_zotus.fasta -db /db_files/gg_files/gg_13_8_otus/rep_set/97_otus.fasta -id 0.75 -strand both -matched rep_set_zotus_filt.fasta
+	
+	-fastx_relabel rep_set_zotus_filt.fasta -prefix 'OTU_' -fastaout rep_set_zotus_filt_relabeled.fasta -keep_annots
 
 
 ####To cluster OTUs at 97% similarity (again, there is an abundance threshold (-minsize), default is 2):
@@ -109,7 +111,7 @@ The -fastq_trunclen is an optional flag to truncate sequences at specific length
 
 #### for zOTUs
 
-	usearch10 -otutab demultiplexed_seqs/demultiplexed_seqs_merged.fq -zotus rep_set_zotus_filt.fasta -otutabout zotutab.txt -mapout zmap.txt
+	usearch10 -otutab demultiplexed_seqs/demultiplexed_seqs_merged.fq -zotus rep_set_zotus_filt_relabeled.fasta -otutabout zotutab.txt -mapout zmap.txt
 
 #### for OTUs
 	
@@ -123,9 +125,9 @@ The goal of this step is to provide taxonomic classifications for each OTU. We d
 
 	biom convert -i zotutab.txt -o zotutab.biom --table-type 'OTU table' --to-json
 
-	assign_taxonomy.py -m rdp -i rep_set_zotus_filt.fasta -o rdp_assigned_taxonomy_zotus -c 0.5 -t <taxonomy database filepath> -r <rep set filepath> --rdp_max_memory 10000
+	assign_taxonomy.py -m rdp -i rep_set_zotus_filt_relabeled.fasta -o rdp_assigned_taxonomy_zotus -c 0.5 -t <taxonomy database filepath> -r <rep set filepath> --rdp_max_memory 10000
 
-	biom add-metadata -i zotutab.biom --observation-metadata-fp rdp_assigned_taxonomy_zotus/rep_set_zotus_filt_tax_assignments.txt --sc-separated taxonomy --observation-header OTUID,taxonomy -o zotutab_wTax.biom
+	biom add-metadata -i zotutab.biom --observation-metadata-fp rdp_assigned_taxonomy_zotus/rep_set_zotus_filt_relabeled_tax_assignments.txt --sc-separated taxonomy --observation-header OTUID,taxonomy -o zotutab_wTax.biom
 	
 Here are the different databases to use for taxonomic classification:
 
