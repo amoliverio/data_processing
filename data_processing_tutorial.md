@@ -117,7 +117,7 @@ The -fastq_trunclen is an optional flag to truncate sequences at specific length
 	
 	usearch10 -otutab demultiplexed_seqs/demultiplexed_seqs_merged.fq -otus rep_set97_filt.fasta -otutabout otutab97.txt -mapout map.txt
 
-**NOTE:** The rest of the pipeline will be the same for zOTUs or OTUs, I've just done zOTUs below to demonstrate. USEARCH manual recommends making tables for both to compare.
+**NOTE:** **The rest of the pipeline will be the same for zOTUs or OTUs, I've just done zOTUs below to demonstrate. USEARCH manual recommends making tables for both to compare, even if you are sure you will use only one or the other method downstream.**
 
 **###Step 6: Add taxonomic classifications**
 
@@ -170,4 +170,4 @@ Convert OTU table back to text format if desired:
 Get stats on OTU table - # OTUs, # samples, etc:
 
 	biom summarize-table -i zotutab_wTax_noChloroMito.txt -o zotutab_wTax_noChloroMito_smry.txt
-	usearch -otutab_stats zotutab_wTax_noChloroMito.txt -output report.txt
+	usearch10 -otutab_stats zotutab_wTax_noChloroMito.txt -output report.txt
