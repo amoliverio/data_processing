@@ -131,7 +131,11 @@ The goal of this step is to provide taxonomic classifications for each OTU. We d
 	
 Here are the different databases to use for taxonomic classification:
 
-	16S Greengenes
+	16S Greengenes 99% cutoff
+	taxonomy (-t): /db_files/gg_files/gg_13_8_otus/taxonomy/99_otu_taxonomy.txt
+	rep set (-r): /db_files/gg_files/gg_13_8_otus/rep_set/99_otus.fasta 
+	
+	16S Greengenes 97% cutoff
 	taxonomy (-t): /db_files/gg_files/gg_13_8_otus/taxonomy/97_otu_taxonomy.txt
 	rep set (-r): /db_files/gg_files/gg_13_8_otus/rep_set/97_otus.fasta 
 
