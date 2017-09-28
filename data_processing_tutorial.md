@@ -32,9 +32,7 @@ Note the naming convention for directories in `/data/shared`: YYYY\_MM\_DD\_Name
 **This applies to you if your sequences were 200bp or longer**
 **Otherwise, skip to 'Step 2b: Demultiplexing'**
 
-The issue is that the DNA fragments have synthetic adapters on both ends due to the sequencing process. If the sequences are long enough, they will extend through the adapter on the far (3') end of the fragment. It is important to trim these adapter sequences so that you are analyzing real biological data without artificial sequences.
-
-To do this, I recommend using a program called 'cutadapt'. For this program to work, it needs to know the adapter sequences you expect to find in each read. Below are the primer/adapter sequences associated with the primers we typically use. However, it is always a good idea to check to make sure these are the correct sequences used in your library prep.
+The issue is that the DNA fragments have synthetic adapters on both ends due to the sequencing process. It is important to trim these adapter sequences so that you are analyzing real biological data without artificial sequences. You can do this with 'cutadapt'. Make sure these are the correct sequences used in your library prep.
 
 	16S rRNA gene forward primer sequence: TTACCGCGGCKGCTGGCACACAATTACCATAGTGTAGATCTCGGTGGTCGCCGTATCATT
 	16S rRNA gene reverse primer sequence: ATTAGAWACCCBDGTAGTCCGGCTGACTGACT
