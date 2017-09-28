@@ -95,7 +95,7 @@ The -fastq_trunclen is an optional flag to truncate sequences at specific length
 	
 	usearch10 -usearch_global rep_set_zotus.fa -db /db_files/gg_files/gg_13_8_otus/rep_set/99_otus.fasta -id 0.75 -strand both -matched rep_set_zotus_filt.fa
 	
-	-fastx_relabel rep_set_zotus_filt.fa -prefix 'OTU_' -fastaout rep_set_zotus_filt_relabeled.fa -keep_annots
+	usearch10 -fastx_relabel rep_set_zotus_filt.fa -prefix 'OTU_' -fastaout rep_set_zotus_filt_relabeled.fa -keep_annots
 
 
 ####To cluster OTUs at 97% similarity (again, there is an abundance threshold (-minsize), default is 2):
