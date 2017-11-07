@@ -1,6 +1,6 @@
 #Data Processing in the Fierer Lab: Sequence Variants (zOTUs) or Clustering at 97% identity (OTUs)
 
-**Updated: 09/25/2017**  
+**Updated: 11/07/2017**  
 **Questions: angela.oliverio43@gmail.com**
 
 ##Notes:
@@ -11,7 +11,7 @@ This pipeline for processing raw sequence data into sequence variants or OTUs wi
 
 Demo mapping file is available here: http://fiererlab.org/?p=516
 
-First, check the mapping file to make sure it is formatted correctly (QIIME command):
+First, check the mapping file to make sure it is formatted correctly (QIIME command). Note that this command almost always returns an error - even if your map file is fine. Look at the .log file to see details of the error.:
 
 	validate_mapping_file.py -m Demo_16S_MappingFile.txt -o checkout/
 
@@ -55,7 +55,9 @@ You can now use the output files from cutadapt with the normal raw index reads f
 
 Merge paired end reads using this command. Note that settings are just guesses and can be altered. **Do not** merge reads unless there is substantial overlap. **Do not** merge blindly or you could bias your data.
 
-	usearch10 -fastq_mergepairs demultiplexed_seqs/demultiplexed_seqs_1.fq -reverse demultiplexed_seqs/demultiplexed_seqs_2.fq -fastq_minovlen 16 -fastq_minmergelen 200 -fastqout demultiplexed_seqs/demultiplexed_seqs_merged.fq -report demultiplexed_seqs/merge_rpt.txt
+**NOTE:** Right now we are still calling usearch8 for this command due to how it parses information correctly. Need to update python script from previous step to fix this, will do this soon. 
+
+	usearch8 -fastq_mergepairs demultiplexed_seqs/demultiplexed_seqs_1.fq -reverse demultiplexed_seqs/demultiplexed_seqs_2.fq -fastq_minovlen 16 -fastq_minmergelen 200 -fastqout demultiplexed_seqs/demultiplexed_seqs_merged.fq -report demultiplexed_seqs/merge_rpt.txt
 	less demultiplexed_seqs/merge_rpt.txt
 
 ###Step 2d: Strip primers after merging
@@ -164,4 +166,3 @@ Convert OTU table back to text format if desired:
 Get stats on OTU table - # OTUs, # samples, etc:
 
 	biom summarize-table -i zotutab_wTax_noChloroMito.txt -o zotutab_wTax_noChloroMito_smry.txt
-	usearch10 -otutab_stats zotutab_wTax_noChloroMito.txt -output report.txt
