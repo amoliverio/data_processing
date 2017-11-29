@@ -57,7 +57,8 @@ Merge paired end reads using this command. Note that settings are just guesses a
 
 **NOTE:** Right now we are still calling usearch8 for this command due to how it parses information correctly. Need to update python script from previous step to fix this, will do this soon. 
 
-	usearch8 -fastq_mergepairs demultiplexed_seqs/demultiplexed_seqs_1.fq -reverse demultiplexed_seqs/demultiplexed_seqs_2.fq -fastq_minovlen 16 -fastq_minmergelen 200 -fastqout demultiplexed_seqs/demultiplexed_seqs_merged.fq -report demultiplexed_seqs/merge_rpt.txt
+	usearch8 -fastq_mergepairs demultiplexed_seqs/demultiplexed_seqs_1.fq -reverse demultiplexed_seqs/demultiplexed_seqs_2.fq -fastq_minovlen 16 -fastq_minmergelen 200 -fastqout demultiplexed_seqs/demultiplexed_seqs_merged.fq -notrunclabels -report demultiplexed_seqs/merge_rpt.txt
+
 	less demultiplexed_seqs/merge_rpt.txt
 
 ###Step 2d: Strip primers after merging
