@@ -1,6 +1,9 @@
+NOTE: this pipeline is no longer maintained! Please refer to our dada2 pipeline for current processing of sequence variants:
+https://github.com/amoliverio/dada2_fiererlab
+
 #Data Processing in the Fierer Lab: Sequence Variants (zOTUs) or Clustering at 97% identity (OTUs)
 
-**Updated: 11/07/2017**  
+**Last Updated: 11/07/2017**  
 **Questions: angela.oliverio43@gmail.com**
 
 ##Notes:
